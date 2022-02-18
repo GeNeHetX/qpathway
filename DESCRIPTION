@@ -1,0 +1,14 @@
+Package: qpath
+Type: Package
+Title: Store and load biological pathways for analysis
+Version: 0.1.0
+Author: Remy Nicolle
+Maintainer: Remy nicolle <remy.c.nicolle@gmail.com>
+Description: .
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    R (>= 2.10)
+Imports:
+	fgsea,  data.table, gridExtra, ggplot2
