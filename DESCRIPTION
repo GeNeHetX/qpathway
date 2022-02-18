@@ -1,4 +1,4 @@
-Package: qpath
+Package: qpathway
 Type: Package
 Title: Store and load biological pathways for analysis
 Version: 0.1.0
@@ -11,4 +11,6 @@ LazyData: true
 Depends: 
     R (>= 2.10)
 Imports:
-	fgsea,  data.table, gridExtra, ggplot2
+	fgsea, 
+	ggplot2, 
+	data.table
