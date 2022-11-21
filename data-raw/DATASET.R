@@ -1,7 +1,11 @@
+
+
 ## code to prepare `DATASET` dataset goes here
 
+# source("/Users/remy.nicolle/Workspace/DEV/PATHWAYS/qpathway/data-raw/DATASET.R")
+
 #usethis::use_data(DATASET, overwrite = TRUE)
-setwd("/Users/remy.nicolle/Workspace/DEV/PATHWAYS/qpath")
+setwd("/Users/remy.nicolle/Workspace/DEV/PATHWAYS/qpathway")
 
 library(devtools)
 
@@ -10,6 +14,8 @@ suffix="v7.5.1.symbols.gmt"
 d="../msigdb_v7.5.1_GMTs"
 allmspf=grep("symbols",list.files("../msigdb_v7.5.1_GMTs/"),value=T)
 selpf=c(grep("all|^c2\\.cp\\.v|^c5\\.go\\.v",grep("^c",allmspf,value=T),invert=T,value=T),grep("c1.all|c6.all|c8.all",allmspf,value=T))
+selpf=c(selpf,grep("^h\\.all",allmspf,value=T))
+
 
 
 mpath=do.call(rbind,lapply(selpf,function(pf){
@@ -27,6 +33,8 @@ mpath=do.call(rbind,lapply(selpf,function(pf){
 
 
 
+
+
 enrchd="../enrichr/"
 allenrichf=grep("txt$",list.files(enrchd),value=T)
 
@@ -37,7 +45,11 @@ epath=do.call(rbind,lapply(allenrichf,function(pf){
 
   gsl=strsplit(scan(file.path(enrchd,pf),what="character",sep="\n"),"\t")
   names(gsl)=gsub(" ","_",sapply(gsl,function(x){x[1]}))
-  gsl=lapply(gsl,function(x){x[3:length(x)]})
+  if(grepl("Tissue_Protein_Expression",pf)[1]){
+    gsl=lapply(gsl,function(x){sub(",.+$","",x[3:length(x)])})
+  }else{
+    gsl=lapply(gsl,function(x){sub(",.+$","",x[3:length(x)])})
+  }
   saveRDS(gsl,file=paste0("inst/extdata/",funa,".rds") )
 
   data.frame(dbOrigin="enrichr",pathwayName=smna,pathwayFile=paste0(funa,".rds"),

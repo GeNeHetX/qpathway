@@ -13,7 +13,7 @@
 #   Test Package:              'Cmd + Shift + T'
 
 loadPath=function(pathlist=c("basic","cellpop","all")[1]){
-  ref=qpath::listPathDB
+  ref=qpathway::listPathDB
   if("basic" %in% pathlist){
     pathlist=c(pathlist,"BioPlanet","Elsevier_Pathway_Collection","c2.cp.reactome","c2.cp.wikipathways",
                "c2.cp.kegg","c2.cp.biocarta","c2.cp.pid")
@@ -26,24 +26,24 @@ loadPath=function(pathlist=c("basic","cellpop","all")[1]){
   }
 
   if("all" %in% pathlist){
-    pathlist=qpath::listPathDB$pathwayName
+    pathlist=qpathway::listPathDB$pathwayName
   }
 
-  pathlist=intersect(pathlist, qpath::listPathDB$pathwayName)
+  pathlist=intersect(pathlist, qpathway::listPathDB$pathwayName)
 
   if(length(pathlist)==0){
-    stop(paste("No such pathway list. Choose among:",qpath::listPathDB$pathwayName,collpase="\n"))
+    stop(paste("No such pathway list. Choose among:",qpathway::listPathDB$pathwayName,collpase="\n"))
   }
 
 
-  seldf=qpath::listPathDB[which(qpath::listPathDB$pathwayName %in%pathlist ),]
+  seldf=qpathway::listPathDB[which(qpathway::listPathDB$pathwayName %in%pathlist ),]
 
 
 
   loadedP=unlist(lapply(1:nrow(seldf),function(i){
-    ap=readRDS(system.file("extdata",seldf[i,"pathwayFile"],package = "qpath"))
+    ap=readRDS(system.file("extdata",seldf[i,"pathwayFile"],package = "qpathway"))
     ap=lapply(ap, function(z){sort(unique(setdiff(z,c(NA,"","---"))))})
-    names(ap)=paste0(seldf[i,"pathwayName"],"~",names(ap))
+    names(ap)=paste0(seldf[i,"pathwayName"],"__",names(ap))
     ap
   }),recursive=F)
 
