@@ -15,12 +15,12 @@
 loadPath=function(pathlist=c("basic","cellpop","all")[1]){
   ref=qpathway::listPathDB
   if("basic" %in% pathlist){
-    pathlist=c(pathlist,"BioPlanet","Elsevier_Pathway_Collection","c2.cp.reactome","c2.cp.wikipathways",
-               "c2.cp.kegg","c2.cp.biocarta","c2.cp.pid")
+    pathlist=c(pathlist,"BioPlanet","Elsevier_Pathway_Collection","c2.cp.wikipathways","Reactome",
+               "c2.cp.kegg_medicus","c2.cp.biocarta","c2.cp.pid","c4.3ca","c6.all","c7.immunesigdb")
   }
 
   if("cellpop" %in% pathlist){
-    pathlist=c(pathlist,"c8.all","Azimuth_Cell_Types","CellMarker_Augmented","Descartes_Cell_Types_and_Tissue",
+    pathlist=c(pathlist,"c8.all","Azimuth","CellMarker","Descartes_Cell_Types_and_Tissue",
                "Human_Gene_Atlas","Jensen_TISSUES","Tissue_Protein_Expression_from_Human_Proteome_Map",
                "Tissue_Protein_Expression_from_ProteomicsDB")
   }

@@ -5,14 +5,15 @@
 # source("/Users/remy.nicolle/Workspace/DEV/PATHWAYS/qpathway/data-raw/DATASET.R")
 
 #usethis::use_data(DATASET, overwrite = TRUE)
-setwd("/Users/remy.nicolle/Workspace/DEV/PATHWAYS/qpathway")
+setwd("/Users/remy.nicolle/Workspace/DEV/qpathway")
 
 library(devtools)
 
 
-suffix="v7.5.1.symbols.gmt"
-d="../msigdb_v7.5.1_GMTs"
-allmspf=grep("symbols",list.files("../msigdb_v7.5.1_GMTs/"),value=T)
+# suffix="v7.5.1.symbols.gmt"
+suffix="v2023.2.Hs.symbols.gmt"
+d="data-raw/msigdb_v2023.2.Hs_GMTs"
+allmspf=grep("symbols",list.files(d),value=T)
 selpf=c(grep("all|^c2\\.cp\\.v|^c5\\.go\\.v",grep("^c",allmspf,value=T),invert=T,value=T),grep("c1.all|c6.all|c8.all",allmspf,value=T))
 selpf=c(selpf,grep("^h\\.all",allmspf,value=T))
 
@@ -28,14 +29,14 @@ mpath=do.call(rbind,lapply(selpf,function(pf){
   saveRDS(gsl,file=paste0("inst/extdata/",n,".rds") )
 
   data.frame(dbOrigin="msigDB",pathwayName=n,pathwayFile=paste0(n,".rds"),
-             nPaths=length(gsl),nMedGene=median(sapply(gsl,length)),v="v7.5.1")
+             nPaths=length(gsl),nMedGene=median(sapply(gsl,length)),v="v2023.2.Hs")
 }))
 
 
 
 
 
-enrchd="../enrichr/"
+enrchd="data-raw/enrichr/"
 allenrichf=grep("txt$",list.files(enrchd),value=T)
 
 epath=do.call(rbind,lapply(allenrichf,function(pf){
@@ -53,7 +54,7 @@ epath=do.call(rbind,lapply(allenrichf,function(pf){
   saveRDS(gsl,file=paste0("inst/extdata/",funa,".rds") )
 
   data.frame(dbOrigin="enrichr",pathwayName=smna,pathwayFile=paste0(funa,".rds"),
-             nPaths=length(gsl),nMedGene=median(sapply(gsl,length)),v="feb2022")
+             nPaths=length(gsl),nMedGene=median(sapply(gsl,length)),v="july2024")
 }))
 
 listPathDB=rbind(mpath,epath)
